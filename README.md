@@ -22,7 +22,7 @@ Currently there exists a number of platforms that provide prediction markets suc
 
 - Omen use Realit.io to act as oracles via submitting answer bonds and provides liquidity via a fixed product market maker (similar to sites such as Uniswap)
 
-Our project is unique in its implementation of the above principles:
+In our implementation, we aim to create a strong incentive for users to create markets and provide liquidity to them, thus achieving better prices for bettors than centralised exchanges. Our project is unique in its implementation of the above principles:
 
 ### Oracle problem
 
@@ -30,13 +30,15 @@ We intend to solve the oracle problem using a system that optimises oracle costs
 
 In the first instance, the outcome of a prediction market will be determined by the user that created the market. 
 
-After the outcome has been set (or if no outcome is set), there is a period of time to allow for users to dispute the result. If nobody disputes the result, then the reward can be claimed for users that predicted that outcome. In this scenario, it can be said that the outcome has been confirmed by 100% of users for no cost.
+After the outcome has been set (or if no outcome is set), there is a period of time to allow for anyone to dispute the result. If nobody disputes the result, then the reward can be claimed for users that predicted that outcome. In this scenario, it can be said that the outcome has been confirmed by 100% of users for no cost.
 
-If a user disputes the result, the outcome will instead be decided by a third party. The event data will be fed to a decentralised dispute resolution platform which is provided by Kleros. The arbitration cost will be determined to ensure that users are not dissuaded from creating a dispute if they believe that the initial outcome was incorrect.
+If a user disputes the result, the outcome will instead be decided by a third party. The event data will be fed to a decentralised dispute resolution platform which is provided by Kleros. The arbitration cost should be low enough to ensure that users are not dissuaded from creating a dispute if they believe that the initial outcome was incorrect, but high enough to dissuade from spurious arbitration requests.
 
-Kleros is also able to provide the option "refused to arbitrate" which can provide a solution where unforeseen outcomes may have occurred. For example, think of an instance where a football match is cancelled because of coronavirus.
+In case of a successful dispute, whoever raised the dispute will be rewarded with the fees that would have otherwise accrued to the market creator. 
 
-In the future, where outcomes can be determined from an API - the use of chainlink oracles may prove beneficial. 
+Kleros is also able to provide the option "refused to arbitrate" which can provide a solution where unforeseen outcomes may have occurred. For example, think of an instance where a football match is cancelled because of coronavirus or the bet itself is unethical (e.g. asassination markets).
+
+In the future, where outcomes can be determined from an API - the use of [chainlink oracles](https://chain.link) may prove beneficial. 
 
 ### Market Making
 
