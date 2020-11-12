@@ -1,6 +1,6 @@
 
 <p align="center">
-![supremecourt](/img/supremecourt.png)
+	  <img src="/img/supremecourt.png">
 </p>
 
 ## Kleros Hackathon
