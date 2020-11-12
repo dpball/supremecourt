@@ -34,23 +34,25 @@ import "https://github.com/kleros/erc-792/blob/master/contracts/IArbitrator.sol"
 
 
 
-contract BettingContract is IArbitable {
+contract BettingContract is IArbitrable {
 
     //set the SupremeCourtArbitrator as owner
     address public owner = msg.sender;
     IArbitrator public arbitrator;
     
     uint256[][] betOptions;
-    uint256 constant numberOfbetOptions;
+    uint256 numberOfbetOptions;
 
 
     constructor(
 
     ) {
-
+        numberOfbetOptions = 3;
     }
 
     
-
+    function rule(uint256 _disputeID, uint256 _ruling) public override {
+        
+    }
 
 }
