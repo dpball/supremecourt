@@ -23,10 +23,10 @@ pragma solidity >=0.7;
 *
 */
 
-import "node_modules/@kleros/erc-792/IArbitrable.sol";
-import "node_modules/@kleros/erc-792/IArbitrator.sol";
+import "https://github.com/kleros/erc-792/blob/master/contracts/IArbitrable.sol";
+import "https://github.com/kleros/erc-792/blob/master/contracts/IArbitrator.sol";
 
-import "BettingContract.sol"
+import "https://github.com/dpball/supremecourt/blob/main/BettingContract.sol";
 
 
 /*
@@ -59,9 +59,11 @@ contract SupremeCourtArbitrator is IArbitrable {
 
     constructor(
         
-    )
+    ) {
+        
+    }
 
-    function createBet(uint256[][] _betOptions, uint256 _betName) is Ownable {
+    function createBet(uint256[][] _betOptions, uint256 _betName) {
     /*
     Function to create a new bet contract
     
@@ -73,7 +75,7 @@ contract SupremeCourtArbitrator is IArbitrable {
             _betOptions[Cancelled][1]
         uint256 betName: the name of the bet, eg: Manchester United - Liverpool 2020.01.03
     */
-        bet = new BettingContract(_betOptions, _betName)
+        bet = new BettingContract(_betOptions, _betName);
 
 
     }
