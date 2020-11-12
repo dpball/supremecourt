@@ -23,7 +23,6 @@ pragma solidity >=0.7;
 *
 */
 
-import "https://github.com/kleros/erc-792/blob/master/contracts/IArbitrable.sol";
 import "https://github.com/kleros/erc-792/blob/master/contracts/IArbitrator.sol";
 
 import "https://github.com/dpball/supremecourt/blob/main/BettingContract.sol";
