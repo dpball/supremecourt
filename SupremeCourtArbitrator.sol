@@ -33,7 +33,7 @@ import "https://github.com/dpball/supremecourt/blob/main/BettingContract.sol";
 * This contract is used to compile the individual betting contracts
 * 
 */
-contract SupremeCourtArbitrator is IArbitrable {
+contract SupremeCourtArbitrator is IArbitrator {
 
     //status of a bet
     enum Status {Initial, Reclaimed, Disputed, Resolved}
@@ -63,7 +63,7 @@ contract SupremeCourtArbitrator is IArbitrable {
         
     }
 
-    function createBet(uint256[][] _betOptions, uint256 _betName) {
+    function createBet(uint256[][] _betOptions, uint256 _betName) public {
     /*
     Function to create a new bet contract
     
@@ -81,7 +81,7 @@ contract SupremeCourtArbitrator is IArbitrable {
     }
 
 
-    function disputeBet(address disputed){
+    function disputeBet(address disputed) public {
         //function to dispute a bet using its contract address
 
 
