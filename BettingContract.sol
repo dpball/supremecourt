@@ -40,10 +40,9 @@ contract BettingContract is IArbitable, ERC20, AccessControl {
 
 
     constructor(
-        IArbitrator _arbitrator;
-        betOptions = _betOptions;
+
     ) {
-        
+
     }
 
     
