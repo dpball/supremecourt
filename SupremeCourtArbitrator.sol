@@ -48,12 +48,16 @@ contract SupremeCourtArbitrator is IArbitrable {
     enum RulingOptions {RefusedToArbitrate, PayOutOriginal, Refund, ReversePayout}
 
 
-    function createBet(uint256[] _rulingOptions, uint256 _betName) is Ownable {
+    function createBet(uint256[][] _rulingOptions, uint256 _betName) is Ownable {
     /*
     Function to create a new bet contract
     
     params:
-        uint256[] _rulingOptions: The different outcomes of the bet. 0 is reserved for RefusedToArbitrate
+        uint256[][] _rulingOptions: The different outcomes of the bet and their initial distribution of 100%
+            _rulingOptions[Win][65]
+            _rulingOptions[Loose][30]
+            _rulingOptions[Draw][4]
+            _rulingOptions[Cancelled][1]
         uint256 betName: the name of the bet, eg: Manchester United - Liverpool 2020.01.03
     */
         bet = new BettingContract(_rulingOptions, _betName)
