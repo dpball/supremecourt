@@ -32,10 +32,15 @@ contract BettingContract is IArbitable, Ownable {
 
     //set the SupremeCourtArbitrator as owner
     address public owner = msg.sender;
+    IArbitrator public arbitrator;
     
-    
-    enum RulingOptions {}
+    uint256 RulingOptions;
+    uint256 constant numberOfRulingOptions;
 
 
-    constructor()
+    constructor(
+        IArbitrator _arbitrator,
+        // -1 because 0 is reserved for RefusedToArbitrate
+        numberOfRulingOptions = _rulingOptions.length-1;
+    )
 }

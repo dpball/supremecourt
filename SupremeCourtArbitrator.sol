@@ -37,6 +37,7 @@ contract SupremeCourtArbitrator is IArbitrable {
 
     //status of a bet
     enum Status {Initial, Reclaimed, Disputed, Resolved}
+    Status public status;
 
 
     function createBet(uint256[] _rulingOptions, uint256 _betName) is Ownable {
@@ -44,7 +45,7 @@ contract SupremeCourtArbitrator is IArbitrable {
     Function to create a new bet contract
     
     params:
-        uint256[] _rulingOptions: The different outcomes of the bet
+        uint256[] _rulingOptions: The different outcomes of the bet. 0 is reserved for RefusedToArbitrate
         uint256 betName: the name of the bet, eg: Manchester United - Liverpool 2020.01.03
     */
         bet = new BettingContract(_rulingOptions, _betName)
