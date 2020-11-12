@@ -39,6 +39,14 @@ contract SupremeCourtArbitrator is IArbitrable {
     enum Status {Initial, Reclaimed, Disputed, Resolved}
     Status public status;
 
+    /* The different ruling options when a contract is disputed
+    *   RefusedToArbitrate: the standard 0 position
+    *   PayOutOriginal: the bet should be concluded as reported in API/other means
+    *   Refund: Something happened and the bet should be called off, participants refunded according to some principle
+    *   reversePayout: The API/other reported false result
+    */
+    enum RulingOptions {RefusedToArbitrate, PayOutOriginal, Refund, ReversePayout}
+
 
     function createBet(uint256[] _rulingOptions, uint256 _betName) is Ownable {
     /*
@@ -53,4 +61,5 @@ contract SupremeCourtArbitrator is IArbitrable {
     }
 
 
+    function rule()
 }

@@ -28,19 +28,20 @@ import "node_modules/@kleros/erc-792/IArbitrator.sol"
 
 import "SupremeCourtArbitrator.sol"
 
-contract BettingContract is IArbitable, Ownable {
+contract BettingContract is IArbitable, Ownable, ERC20 {
 
     //set the SupremeCourtArbitrator as owner
     address public owner = msg.sender;
     IArbitrator public arbitrator;
     
-    uint256 RulingOptions;
+    uint256[] RulingOptions;
     uint256 constant numberOfRulingOptions;
 
 
     constructor(
         IArbitrator _arbitrator,
         // -1 because 0 is reserved for RefusedToArbitrate
-        numberOfRulingOptions = _rulingOptions.length-1;
     )
+
+
 }
