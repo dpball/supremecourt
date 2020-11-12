@@ -23,8 +23,8 @@ pragma solidity >=0.7;
 *
 */
 
-import "node_modules/@kleros/erc-792/IArbitrable.sol"
-import "node_modules/@kleros/erc-792/IArbitrator.sol"
+import "node_modules/@kleros/erc-792/IArbitrable.sol";
+import "node_modules/@kleros/erc-792/IArbitrator.sol";
 
 import "BettingContract.sol"
 
@@ -39,6 +39,15 @@ contract SupremeCourtArbitrator is IArbitrable {
     enum Status {Initial, Reclaimed, Disputed, Resolved}
     Status public status;
 
+
+    //Access Control
+    //JUDGE can dispute bets, set them on pause, its the default admin role and can set the roles of others
+    bytes32 public constant JUDGE = keccak256("JUDGE_ROLE");
+    //BOOKIE is the BettingContract, it can mint betting tokens
+    bytes32 public constant BOOKIE = keccak256("BOOKIE_ROLE");
+
+
+
     /* The different ruling options when a contract is disputed
     *   RefusedToArbitrate: the standard 0 position
     *   PayOutOriginal: the bet should be concluded as reported in API/other means
@@ -48,22 +57,32 @@ contract SupremeCourtArbitrator is IArbitrable {
     enum RulingOptions {RefusedToArbitrate, PayOutOriginal, Refund, ReversePayout}
 
 
-    function createBet(uint256[][] _rulingOptions, uint256 _betName) is Ownable {
+    constructor(
+        
+    )
+
+    function createBet(uint256[][] _betOptions, uint256 _betName) is Ownable {
     /*
     Function to create a new bet contract
     
     params:
-        uint256[][] _rulingOptions: The different outcomes of the bet and their initial distribution of 100%
-            _rulingOptions[Win][65]
-            _rulingOptions[Loose][30]
-            _rulingOptions[Draw][4]
-            _rulingOptions[Cancelled][1]
+        uint256[][] _betOptions: The different outcomes of the bet and their initial distribution of 100%
+            _betOptions[Win][65]
+            _betOptions[Loose][30]
+            _betOptions[Draw][4]
+            _betOptions[Cancelled][1]
         uint256 betName: the name of the bet, eg: Manchester United - Liverpool 2020.01.03
     */
-        bet = new BettingContract(_rulingOptions, _betName)
+        bet = new BettingContract(_betOptions, _betName)
+
 
     }
 
 
-    function rule()
+    function disputeBet(address disputed){
+        //function to dispute a bet using its contract address
+
+
+    }
+
 }
