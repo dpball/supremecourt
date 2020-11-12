@@ -26,7 +26,7 @@ pragma solidity >=0.7;
 import "https://github.com/kleros/erc-792/blob/master/contracts/IArbitrable.sol";
 import "https://github.com/kleros/erc-792/blob/master/contracts/IArbitrator.sol";
 
-import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/access/AccessControl.sol";
+//import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/access/AccessControl.sol";
 import "https://github.com/dpball/supremecourt/blob/main/SupremeCourtArbitrator.sol";
 
 
@@ -34,7 +34,7 @@ import "https://github.com/dpball/supremecourt/blob/main/SupremeCourtArbitrator.
 
 
 
-contract BettingContract is IArbitable, ERC20, AccessControl {
+contract BettingContract is IArbitable, ERC20 {
 
     //set the SupremeCourtArbitrator as owner
     address public owner = msg.sender;
