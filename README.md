@@ -1,5 +1,8 @@
 
+<p align="center">
 ![supremecourt](/img/supremecourt.png)
+</p>
+
 ## Kleros Hackathon
 
 
