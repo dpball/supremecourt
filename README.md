@@ -6,7 +6,7 @@
 
 Regardless of ones political beliefs, the 2020 US Presidential election has started a discussion on the importance of decentralised prediction markets. Crowdsourcing predictions by providing financial incentives can often outperform traditional forecasting. In this project, we aim to produce a decentralised prediction market that runs on the ethereum blockchain and is secured by Kleros.
 
-In order to design this project, two problems need to be solved:
+In order to design this project, two problems need to be addressed:
 
 1. The oracle problem
 > The outcome of any event (such as "Who will win the 2020 US Presidential Election?") needs to be established and stored on the blockchain in a trustless manner.
@@ -44,4 +44,4 @@ Traditional orderbooks are dependent on large amounts of liquidity. As we intend
 
 We shall take advantage of the features provided by automated market makers to allow a user to make a prediction regardless of the pre-existing liquidity. There are many different algorithms available but we have chosen to use a modified LMSR (logarithmic market scoring rule) to generate a fair price for any market.
 
-These algorithms allow for dynamic price discovery and can be implemented in a manner that minimises the losses in the case of large payouts. When the algorithm generates a profit, the funds can be kept to subsidise future arbitration costs.
+These algorithms allow for dynamic price discovery without any pre-determined notion of the starting odds and can be implemented in a manner that minimises the losses in the case of large payouts. When the algorithm generates a profit, the funds can be kept to subsidise future arbitration costs.
