@@ -40,14 +40,6 @@ contract SupremeCourtArbitrator is IArbitrator {
     Status public status;
 
 
-    //Access Control
-    //JUDGE can dispute bets, set them on pause, its the default admin role and can set the roles of others
-    bytes32 public constant JUDGE = keccak256("JUDGE_ROLE");
-    //BOOKIE is the BettingContract, it can mint betting tokens
-    bytes32 public constant BOOKIE = keccak256("BOOKIE_ROLE");
-
-
-
     /* The different ruling options when a contract is disputed
     *   RefusedToArbitrate: the standard 0 position
     *   PayOutOriginal: the bet should be concluded as reported in API/other means
