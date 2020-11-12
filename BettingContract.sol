@@ -34,7 +34,7 @@ import "https://github.com/kleros/erc-792/blob/master/contracts/IArbitrator.sol"
 
 
 
-contract BettingContract is IArbitable, ERC20 {
+contract BettingContract is IArbitable {
 
     //set the SupremeCourtArbitrator as owner
     address public owner = msg.sender;
