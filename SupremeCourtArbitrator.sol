@@ -35,22 +35,21 @@ import "BettingContract.sol"
 */
 contract SupremeCourtArbitrator is IArbitrable {
 
-    constructor(
+    //status of a bet
+    enum Status {Initial, Reclaimed, Disputed, Resolved}
 
-    )
 
-
-function createBet(string[] _rulingOptions, string _betName) is Ownable {
+    function createBet(uint256[] _rulingOptions, uint256 _betName) is Ownable {
     /*
-       Function to create a new bet contract
+    Function to create a new bet contract
     
-        params:
-            string[] _rulingOptions: The different outcomes of the bet
-            string betName: the name of the bet, eg: Manchester United - Liverpool 2020.01.03
+    params:
+        uint256[] _rulingOptions: The different outcomes of the bet
+        uint256 betName: the name of the bet, eg: Manchester United - Liverpool 2020.01.03
     */
-    bet = new BettingContract(_rulingOptions, _betName)
+        bet = new BettingContract(_rulingOptions, _betName)
 
-}
+    }
 
 
 }

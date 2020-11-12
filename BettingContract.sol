@@ -30,6 +30,10 @@ import "SupremeCourtArbitrator.sol"
 
 contract BettingContract is IArbitable, Ownable {
 
+    //set the SupremeCourtArbitrator as owner
+    address public owner = msg.sender;
+    
+    
     enum RulingOptions {}
 
 
