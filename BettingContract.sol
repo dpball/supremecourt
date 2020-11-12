@@ -29,6 +29,11 @@ import "https://github.com/kleros/erc-792/blob/master/contracts/IArbitrator.sol"
 import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/access/AccessControl.sol";
 import "https://github.com/dpball/supremecourt/blob/main/SupremeCourtArbitrator.sol";
 
+
+
+
+
+
 contract BettingContract is IArbitable, ERC20, AccessControl {
 
     //set the SupremeCourtArbitrator as owner
