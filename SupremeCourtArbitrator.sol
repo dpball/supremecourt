@@ -54,7 +54,7 @@ contract SupremeCourtArbitrator is IArbitrator {
         
     }
 
-    function createBet(uint256[][] _betOptions, uint256 _betName) public {
+    function createBet(uint256[] memory _betOptions, uint256 _betName) public {
     /*
     Function to create a new bet contract
     
@@ -66,7 +66,7 @@ contract SupremeCourtArbitrator is IArbitrator {
             _betOptions[Cancelled][1]
         uint256 betName: the name of the bet, eg: Manchester United - Liverpool 2020.01.03
     */
-        bet = new BettingContract(_betOptions, _betName);
+        new BettingContract();
 
 
     }
