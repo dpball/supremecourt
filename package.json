@@ -1,0 +1,22 @@
+{
+  "name": "supremecourt",
+  "version": "1.0.0",
+  "description": "Kleros Hackathon",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dpball/supremecourt.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dpball/supremecourt/issues"
+  },
+  "homepage": "https://github.com/dpball/supremecourt#readme",
+  "dependencies": {
+    "@openzeppelin/contracts": "^3.2.0"
+  }
+}
