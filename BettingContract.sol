@@ -159,7 +159,7 @@ contract BettingContract is IArbitrable, AccessControl {
 
 
     
-    function createBet(uint256 _disputeID, uint256 _ruling) public override {
+    function createBet(uint256 _disputeID, uint256 _ruling) internal {
         //this should give the bet contract minting rights, or should the minting be moved to contract side?
         
     }

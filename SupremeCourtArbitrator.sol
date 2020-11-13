@@ -164,7 +164,7 @@ contract SupremeCourtArbitrator is IArbitrator, AccessControl {
 
 
 
-    function createBet(uint256[][] memory _betOptions, uint256 _betName) public {
+    function createBet() public {
     /*
     Function to create a new bet contract
     
@@ -176,7 +176,7 @@ contract SupremeCourtArbitrator is IArbitrator, AccessControl {
             _betOptions[Cancelled][1]
         uint256 betName: the name of the bet, eg: Manchester United - Liverpool 2020.01.03
     */
-        new BettingContract();
+        //new BettingContract();
 
 
     }
