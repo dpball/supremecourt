@@ -72,7 +72,7 @@ contract BettingContract is IArbitrable, AccessControl {
         //set up admin role for the SupremeCourtArbitrator
         _setupRole(ADMIN_ROLE, address(this));
         //set up information regarding the bet
-        betName = _name;
+   
 
         value = msg.value;
         payee = _payee;
