@@ -35,11 +35,17 @@ import "https://github.com/dpball/supremecourt/blob/main/BettingContract.sol";
 */
 contract SupremeCourtArbitrator is IArbitrator, AccessControl {
 
-    
+    bytes32 public constant ADMIN_ROLE = keccak256("ADMIN_ROLE");
 
-    address public owner = msg.sender;
     uint256 constant appealWindow = 3 minutes;
     uint256 internal arbitrationFee = 1e15;
+
+    constructor(
+
+    ) public {
+        //set up admin role to itself
+        _setupRole(ADMIN_ROLE, address(this));
+    }
 
     struct Dispute {
         IArbitrable arbitrated;
@@ -102,7 +108,8 @@ contract SupremeCourtArbitrator is IArbitrator, AccessControl {
     }
 
     function giveRuling(uint256 _disputeID, uint256 _ruling) public {
-        require(msg.sender == owner, "Only the owner of this contract can execute rule function.");
+        //require(msg.sender == owner, "Only the owner of this contract can execute rule function."); replace with AccessControl
+        require(hasRole(ADMIN_ROLE, _msgSender()), "Requires ADMIN role");
 
         Dispute storage dispute = disputes[_disputeID];
 
