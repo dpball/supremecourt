@@ -24,6 +24,7 @@ pragma solidity >=0.7;
 */
 
 import "https://github.com/kleros/erc-792/blob/master/contracts/IArbitrator.sol";
+import "https://github.com/dpball/supremecourt/blob/main/node_modules/%40openzeppelin/contracts/access/AccessControl.sol";
 
 import "https://github.com/dpball/supremecourt/blob/main/BettingContract.sol";
 
@@ -32,7 +33,7 @@ import "https://github.com/dpball/supremecourt/blob/main/BettingContract.sol";
 * This contract is used to compile the individual betting contracts
 * 
 */
-contract SupremeCourtArbitrator is IArbitrator {
+contract SupremeCourtArbitrator is IArbitrator, AccessControl {
 
     //status of a bet
     enum Status {Initial, Reclaimed, Disputed, Resolved}
@@ -54,7 +55,7 @@ contract SupremeCourtArbitrator is IArbitrator {
         
     }
 
-    function createBet(uint256[] memory _betOptions, uint256 _betName) public {
+    function createBet(uint256[][] memory _betOptions, uint256 _betName) public {
     /*
     Function to create a new bet contract
     

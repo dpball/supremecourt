@@ -29,31 +29,52 @@ import "https://github.com/kleros/erc-792/blob/master/contracts/IArbitrator.sol"
 import "https://github.com/dpball/supremecourt/blob/main/node_modules/%40openzeppelin/contracts/access/AccessControl.sol";
 import "https://github.com/dpball/supremecourt/blob/main/node_modules/%40openzeppelin/contracts/token/ERC20/ERC20.sol";
 //import "https://github.com/dpball/supremecourt/blob/main/SupremeCourtArbitrator.sol";
+import "https://github.com/dpball/supremecourt/blob/main/node_modules/%40openzeppelin/contracts/token/ERC20/ERC20Pausable.sol";
 
 
 
 
 
 
-contract BettingContract is IArbitrable, AccessControl, ERC20 {
+contract BettingContract is IArbitrable, AccessControl, ERC20, Pausable {
 
     //set the SupremeCourtArbitrator as owner
     address public owner = msg.sender;
     IArbitrator public arbitrator;
     
     uint256[][] betOptions;
-    uint256 numberOfbetOptions;
+    uint256 numberOfbetOptions = 3;
+
+    //right management under AccessControll
+    bytes32 public constant ADMIN_ROLE = keccak256("ADMIN_ROLE");
+    bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");
 
 
     constructor(
-
+        string memory name_,
+        string memory symbol_
     ) {
-        numberOfbetOptions = 3;
+        //set up minter role to itself
+        _setupRole(MINTER_ROLE, address(this));
+        //set up admin role for the SupremeCourtArbitrator
+        _setupRole(ADMIN_ROLE, msg.sender)
     }
 
     
     function rule(uint256 _disputeID, uint256 _ruling) public override {
         
     }
+
+    function mintPools() internal{
+    /*
+    *   Function for minting the pools
+    *   function takes the odds from betOptions[][X]
+    *  
+    */
+        require(hasRole(MINTER_ROLE)
+
+    }
+
+
 
 }
