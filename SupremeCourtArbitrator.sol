@@ -75,7 +75,32 @@ contract SupremeCourtArbitrator is IArbitrator {
     function disputeBet(address disputed) public {
         //function to dispute a bet using its contract address
 
+        function createDispute(uint256 _choices, bytes calldata _extraData) public override payable returns (uint256 disputeID);
 
+    }
+
+    function arbitrationCost(bytes calldata _extraData) override pure returns (uint256 cost){
+
+    }
+
+    function appeal(uint256 _disputeID, bytes memory _extraData) public override payable {
+
+    }
+
+    function appealCost(uint256 _disputeID, bytes memory _extraData) public override pure returns (uint256){
+
+    }
+
+    function appealPeriod(uint256 _disputeID) public override pure returns (uint256 start, uint256 end){
+
+    }
+
+    function disputeStatus(uint256 _disputeID) public override view returns (DisputeStatus status){
+
+    }
+
+    function currentRuling(uint256 _disputeID) public override view returns (uint256 ruling){
+        
     }
 
 }
