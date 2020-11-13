@@ -74,7 +74,17 @@ contract SupremeCourtArbitrator is IArbitrator, AccessControl {
 
 
     function disputeBet(address disputed) public {
-        //function to dispute a bet using its contract address
+        /*
+        *   function used to dispute bets in case someone thinks the API result was faulty
+        *   function freezes the bet and opens a kleros dispute
+        *   anyone can call it
+        *
+        *   params:
+        *       disputed: the address of the contract that we wish to dispute
+        *    
+        */
+
+
 
 
     }
