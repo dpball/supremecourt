@@ -195,7 +195,7 @@ contract SupremeCourtArbitrator is IArbitrator, AccessControl {
 
         //psyudocode OurOwnPauseFunction(disputed);
 
-
+    }
 
 
 /*
