@@ -27,7 +27,7 @@ import "https://github.com/kleros/erc-792/blob/master/contracts/IArbitrable.sol"
 import "https://github.com/kleros/erc-792/blob/master/contracts/IArbitrator.sol";
 
 import "https://github.com/dpball/supremecourt/blob/main/node_modules/%40openzeppelin/contracts/access/AccessControl.sol";
-import "https://github.com/dpball/supremecourt/blob/main/node_modules/%40openzeppelin/contracts/token/ERC20/IERC20.sol";
+import "https://github.com/dpball/supremecourt/blob/main/node_modules/%40openzeppelin/contracts/token/ERC20/ERC20.sol";
 //import "https://github.com/dpball/supremecourt/blob/main/SupremeCourtArbitrator.sol";
 
 
