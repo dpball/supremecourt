@@ -5,6 +5,7 @@
 
 ## Kleros Hackathon
 
+> Prediction is very difficult, especially about the future - Niels Bohr
 
 ### Project: Prediction Market Maker / Betting Platform
 
@@ -12,11 +13,11 @@ Regardless of ones political beliefs, the 2020 US Presidential election has star
 
 In order to design this project, two problems need to be addressed:
 
-1. The oracle problem
-> The outcome of any event (such as "Who will win the 2020 US Presidential Election?") needs to be established and stored on the blockchain in a trustless manner.
+#### 1. The oracle problem
+The outcome of any event (such as "Who will win the 2020 US Presidential Election?") needs to be established and stored on the blockchain in a trustless manner.
 
-2. Handling order book / market making
-> In order for users to act honestly, there must be a financial reward. Money can be exchanged between users (such as what is seen on sports betting exchanges) or with an individual market maker. 
+#### 2. Handling order book / market making
+In order for users to act honestly, there must be a financial reward. Money can be exchanged between users (such as what is seen on sports betting exchanges) or with an individual market maker. 
 
 ### Existing implementations
 
@@ -34,7 +35,7 @@ We intend to solve the oracle problem using a system that optimises oracle costs
 
 In the first instance, the outcome of a prediction market will be determined by the user that created the market. 
 
-After the outcome has been set (or if no outcome is set), there is a period of time to allow for anyone to dispute the result. If nobody disputes the result, then the reward can be claimed for users that predicted that outcome. In this scenario, it can be said that the outcome has been confirmed by 100% of users for no cost.
+After the outcome has been set (or if no outcome is set), there is a period of time to allow for anyone to dispute the result. If nobody disputes the result, then the reward can be claimed for users that predicted that outcome. In this scenario, it can be said that the outcome has been confirmed by 100% of users for no additional oracle cost.
 
 If a user disputes the result, the outcome will instead be decided by a third party. The event data will be fed to a decentralised dispute resolution platform which is provided by Kleros. The arbitration cost should be low enough to ensure that users are not dissuaded from creating a dispute if they believe that the initial outcome was incorrect, but high enough to dissuade from spurious arbitration requests.
 
@@ -42,7 +43,7 @@ In case of a successful dispute, whoever raised the dispute will be rewarded wit
 
 Kleros is also able to provide the option "refused to arbitrate" which can provide a solution where unforeseen outcomes may have occurred. For example, think of an instance where a football match is cancelled because of coronavirus or the bet itself is unethical (e.g. asassination markets).
 
-In the future, where outcomes can be determined from an API - the use of [chainlink oracles](https://chain.link) may prove beneficial. 
+In the future, where outcomes can be determined from an API - the use of [chainlink oracles](https://chain.link) may prove beneficial as an additional layer of security. 
 
 ### Market Making
 
