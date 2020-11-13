@@ -19,7 +19,7 @@ contract SCMMaker {
      **/
     constructor(uint8 _numOptions) {
         numOfOutcomes = _numOptions;
-        int128 IL = ABDKMath64x64.fromUInt(initialLiq); //need to divide by 10**18 to get from wei to ether
+        int128 IL = ABDKMath64x64.fromUInt(initialLiq);
         int128 n = ABDKMath64x64.fromUInt(_numOptions);
         alpha = ABDKMath64x64.div(1,ABDKMath64x64.mul(10,ABDKMath64x64.mul(n,ABDKMath64x64.ln(n))));
         b = ABDKMath64x64.mul(ABDKMath64x64.mul(IL,n),alpha);
@@ -71,6 +71,7 @@ contract SCMMaker {
     }
     
     function buyshares(uint8 outcome, int128 amount) public returns (int128 spot_price) {
+        //require betting still open
         int128 new_cost;
         int128 sumtotal;
         total_balance = ABDKMath64x64.add(total_balance,amount);
@@ -88,6 +89,20 @@ contract SCMMaker {
         spot_price = ABDKMath64x64.sub(new_cost,current_cost);
         //require(currency.transfer(this.address,ABDKMath64x64.toUInt(spot_price*1000000000000000000)));
         current_cost = new_cost;
+    }
+    
+    function claimReward() public returns (uint256) {
+        //require event to be finished
+        //require event to be judged upon
+        //require no further appeals allowed
+        uint8 outcome = 1;//GET THIS FROM KLEROS
+        int128 reward = balances[outcome][msg.sender];
+        q[outcome] = 0;
+        balances[outcome][msg.sender] = 0;
+        total_balance = ABDKMath64x64.sub(total_balance,reward);
+        uint256 winnings = ABDKMath64x64.mulu(reward,10**18);
+        //require(currency.transferFrom(this.address,msg.sender,winnings));
+        return(winnings);
     }
     
     function fu(uint256 x) public pure returns (int128) { //DEBUGGING FUNCTION - for convenience only
