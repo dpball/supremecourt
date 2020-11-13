@@ -70,7 +70,7 @@ contract BettingContract is IArbitrable, AccessControl {
         //set up minter role to itself
         _setupRole(MINTER_ROLE, address(this));
         //set up admin role for the SupremeCourtArbitrator
-        _setupRole(ADMIN_ROLE, msg.sender);
+        _setupRole(ADMIN_ROLE, address(this));
         //set up information regarding the bet
         betName = _name;
 
@@ -123,7 +123,10 @@ contract BettingContract is IArbitrable, AccessControl {
     }
 
     function rule(uint256 _disputeID, uint256 _ruling) public override {
-        require(msg.sender == address(arbitrator), "Only the arbitrator can execute this.");
+        //require(msg.sender == address(arbitrator), "Only the arbitrator can execute this."); change to AccessControl admin right
+        require(hasRole(ADMIN_ROLE, _msgSender()), "Requires ADMIN role");
+
+
         require(status == Status.Disputed, "There should be dispute to execute a ruling.");
         require(_ruling <= numberOfRulingOptions, "Ruling out of bounds!");
 
@@ -156,7 +159,8 @@ contract BettingContract is IArbitrable, AccessControl {
 
 
     
-    function rule(uint256 _disputeID, uint256 _ruling) public override {
+    function createBet(uint256 _disputeID, uint256 _ruling) public override {
+        //this should give the bet contract minting rights, or should the minting be moved to contract side?
         
     }
 
@@ -166,7 +170,8 @@ contract BettingContract is IArbitrable, AccessControl {
     *   function takes the odds from betOptions[][X]
     *  
     */
-        require(hasRole(MINTER_ROLE)
+        require(hasRole(MINTER_ROLE, _msgSender()), "Requires MINTER role");
+
 
     }
 
