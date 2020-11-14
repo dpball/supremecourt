@@ -32,9 +32,7 @@ In our implementation, we aim to create a strong incentive for users to create m
 
 ## Our Implementation
 
-<p align="center">
-	  <img src="/img/frontEND.jpg">
-</p>
+*Image goes here*
 
 Our implemention works the following way:
 
