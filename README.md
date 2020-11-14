@@ -5,6 +5,7 @@
 
 ## Kleros Hackathon
 
+> Prediction is very difficult, especially about the future - Niels Bohr
 
 ### Project: Prediction Market Maker / Betting Platform
 
@@ -12,11 +13,11 @@ Regardless of ones political beliefs, the 2020 US Presidential election has star
 
 In order to design this project, two problems need to be addressed:
 
-1. The oracle problem
-> The outcome of any event (such as "Who will win the 2020 US Presidential Election?") needs to be established and stored on the blockchain in a trustless manner.
+#### 1. The oracle problem
+The outcome of any event (such as "Who will win the 2020 US Presidential Election?") needs to be established and stored on the blockchain in a trustless manner.
 
-2. Handling order book / market making
-> In order for users to act honestly, there must be a financial reward. Money can be exchanged between users (such as what is seen on sports betting exchanges) or with an individual market maker. 
+#### 2. Handling order book / market making
+In order for users to act honestly, there must be a financial reward. Money can be exchanged between users (such as what is seen on sports betting exchanges) or with an individual market maker. 
 
 ### Existing implementations
 
@@ -31,7 +32,7 @@ In our implementation, we aim to create a strong incentive for users to create m
 
 ## Our Implementation
 
-
+After the outcome has been set (or if no outcome is set), there is a period of time to allow for anyone to dispute the result. If nobody disputes the result, then the reward can be claimed for users that predicted that outcome. In this scenario, it can be said that the outcome has been confirmed by 100% of users for no additional oracle cost.
 
 <p align="center">
 	  <img src="/img/frontEND.jpg">
