@@ -32,8 +32,6 @@ In our implementation, we aim to create a strong incentive for users to create m
 
 ## Our Implementation
 
-After the outcome has been set (or if no outcome is set), there is a period of time to allow for anyone to dispute the result. If nobody disputes the result, then the reward can be claimed for users that predicted that outcome. In this scenario, it can be said that the outcome has been confirmed by 100% of users for no additional oracle cost.
-
 <p align="center">
 	  <img src="/img/frontEND.jpg">
 </p>
