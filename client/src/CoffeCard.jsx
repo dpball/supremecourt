@@ -30,8 +30,8 @@ const CoffeCard = props => {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small">BUY NOW</Button>
-        <Button size="small">OFFER</Button>
+        <Button size="small">BET</Button>
+        <Button size="small">ADD LIQUIDITY</Button>
       </CardActions>
     </Card>
   );
