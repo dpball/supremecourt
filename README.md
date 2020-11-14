@@ -38,7 +38,7 @@ In our implementation, we aim to create a strong incentive for users to create m
 
 We decided to focus on what we see as the two main issues of existing implementations: 
 
-- Liquidity provers have little incentive to create markets. The [Omen FAQ](https://omen.eth.link/faq.pdf) points out that the liquidity providers can lose up to all funds by creating a market. The trading fees do not compensate for this risk.  
+- Liquidity providers have little incentive to create markets. The [Omen FAQ](https://omen.eth.link/faq.pdf) points out that the liquidity providers can lose up to all funds by creating a market. The trading fees do not compensate for this risk.  
 - The truth settlement mechanism is too convoluted. Using two different truth determining mechanisms (Realit.io and appeals with Kleros) adds fees and unneccesary complexity.
 
 We have chosen to solve this through: 

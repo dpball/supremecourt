@@ -12,9 +12,9 @@ const useStyles = makeStyles(() => ({
 const Header = () => {
   const classes = useStyles();
   return (
-    <AppBar position="static">
+    <AppBar position="static" style = {{backgroundColor: "#ED1C24"}}>
       <Toolbar>
-        <Typography className={classes.typographyStyles}>
+        <Typography className={classes.typographyStyles} fontWeight="fontWeightBold">
           SUPREME COURT
         </Typography>
         <AcUnitRoundedIcon />
