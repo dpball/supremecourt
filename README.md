@@ -26,28 +26,47 @@ Currently there exists a number of platforms that provide prediction markets suc
 
 - Omen use Realit.io to act as oracles via submitting answer bonds and provides liquidity via a fixed product market maker (similar to sites such as Uniswap)
 
-In our implementation, we aim to create a strong incentive for users to create markets and provide liquidity to them, thus achieving better prices for bettors than centralised exchanges. Our project is unique in its implementation of the above principles:
+In our implementation, we aim to create a strong incentive for users to create markets and provide liquidity to them, thus achieving better prices for bettors than centralised exchanges.
 
-### Oracle problem
 
-We intend to solve the oracle problem using a system that optimises oracle costs by framing the outcome as a dispute.
+## Our Implementation
 
-In the first instance, the outcome of a prediction market will be determined by the user that created the market. 
 
-After the outcome has been set (or if no outcome is set), there is a period of time to allow for anyone to dispute the result. If nobody disputes the result, then the reward can be claimed for users that predicted that outcome. In this scenario, it can be said that the outcome has been confirmed by 100% of users for no cost.
 
-If a user disputes the result, the outcome will instead be decided by a third party. The event data will be fed to a decentralised dispute resolution platform which is provided by Kleros. The arbitration cost should be low enough to ensure that users are not dissuaded from creating a dispute if they believe that the initial outcome was incorrect, but high enough to dissuade from spurious arbitration requests.
+<p align="center">
+	  <img src="/img/frontEND.jpg">
+</p>
 
-In case of a successful dispute, whoever raised the dispute will be rewarded with the fees that would have otherwise accrued to the market creator. 
+Our implemention works the following way:
 
-Kleros is also able to provide the option "refused to arbitrate" which can provide a solution where unforeseen outcomes may have occurred. For example, think of an instance where a football match is cancelled because of coronavirus or the bet itself is unethical (e.g. asassination markets).
+- An Initial Liquidity Provider (ILP or GAMEMASTER) creates a market on the SUPREME COURT for a bet with at least two outcomes, setting the expiry date only. The liquidity they provide to the market can only be recovered after the bet has been settled.
 
-In the future, where outcomes can be determined from an API - the use of [chainlink oracles](https://chain.link) may prove beneficial. 
+- Users (BETTORS) make bets on multiple positions for the duration of the market. Essentially, bettors are purchasing futures contracts that expire at 1 if the outcome they bet on occurs, and 0 if it does not. The prices of these are set by the ODDS ALLOCATION ALGORITHM (OAA). The OOA is designed so that the GAMEMASTER should in theory profit from the pool, although losses are mathematically possible. 
 
-### Market Making
+- Once the bet has expired, the GAMEMASTER has 24 hours to report the outcome of the bet. Should nobody dispute the outcome within 24 hours, the winners can claim their winnings and the GAMEMASTER recovers the initial liquidity pool and the additional profits. In the future, where outcomes can be determined from an API - the use of [chainlink oracles](https://chain.link) may prove beneficial.
+
+- Anyone can dispute the GAMEMASTER's decision through the decentralised dispute resolution platform which is provided by Kleros. Whoever successfully disputes the GAMEMASTER's decision wins the rights to the Initial Liquidity Pool and any profits that the initial liquidity provider is entitled to. This should be a sufficient incentive for users to dispute incorrect decisions by Gamemasters. 
+
+- BETTORS can also bet on a NONE OF THE ABOVE / REFUSE TO ARBITRATE/ INVALID QUESTION outcome for all contracts. This serves two purposes: first, it helps filter out unethical or invalid questions. Second, it includes all edge cases, such as a football game being cancelled before the contract expires, essentially anything that is not one of the predetermined outcomes. Because it is possible to bet on these unlikely edge cases, the profits of the GAMEMASTER increase.
+
+
+### Market Making & the Odds Allocation Algorithm
 
 Traditional orderbooks are dependent on large amounts of liquidity. As we intend for users to be able to generate their own prediction markets, it would not be viable to expect them to provide sufficient liquidity to allow for an orderbook model.
 
 We shall take advantage of the features provided by automated market makers to allow a user to make a prediction regardless of the pre-existing liquidity. There are many different algorithms available but we have chosen to use a modified LMSR (logarithmic market scoring rule) to generate a fair price for any market.
 
-These algorithms allow for dynamic price discovery without any pre-determined notion of the starting odds and can be implemented in a manner that minimises the losses in the case of large payouts. When the algorithm generates a profit, the funds can be kept to subsidise future arbitration costs.
+These algorithms allow for dynamic price discovery without any pre-determined notion of the starting odds and can be implemented in a manner that minimises the losses in the case of large payouts. Morover, the algorithm is calibrated such that it is expected to generate a profit to the GAMEMASTER. 
+
+
+### Future Features
+
+- CashOut function
+- ChainLink Oracle for API 
+
+
+
+
+
+
+
