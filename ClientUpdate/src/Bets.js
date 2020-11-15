@@ -46,7 +46,7 @@ class BetCard extends Component {
       <Typography>Answer revealed: {returnFormattedTime(eventData.resultTime)}</Typography>
       <Button>Set Outcome (only GAMEMASTER)</Button>
       <Button>Dispute Answer</Button>
-      <Button size="large" color="primary" size="large" color="primary" variant="contained">Claim reward </Button>
+      <Button size="large" color="primary"  style = {{backgroundColor: "#ED1C24"}} size="large" color="primary" variant="contained">Claim reward </Button>
       </div>
     )
   }

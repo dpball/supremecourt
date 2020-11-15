@@ -110,7 +110,7 @@ class App extends Component {
       <AppBar position="static" style = {{backgroundColor: "#ED1C24"}} >
         <img style={{ width: "50%" }} src="supreme_header.png" />
         <Typography variant="h6" color="inherit" noWrap>
-          Your address: {this.state.account}
+          Sir {this.state.account}
         </Typography>
 
       </AppBar>
