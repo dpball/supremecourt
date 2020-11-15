@@ -57,21 +57,7 @@ In practice our implemention works the following way:
 
 - An Initial Liquidity Provider (GAMEMASTER) creates a market on the SUPREME COURT for a bet with at least two outcomes, setting the expiry date only. The liquidity they provide to the market can only be recovered after the bet has been settled.
 
-<p align="center">
-	  <img src="/img/screenshot_create.png">
-</p>
-
-
 - Users (BETTORS) make bets on multiple positions for the duration of the market. Essentially, bettors are purchasing futures contracts that expire at 1 if the outcome they bet on occurs, and 0 if it does not. The prices of these are set by the ODDS ALLOCATION ALGORITHM (OAA). The OAA is designed such that the GAMEMASTER will more often than not profit from the pool, although losses are still possible. The markets where a single outcome is guaranteed or extremely likely (Will I roll 1-6 with a dice?) are the most common types of market that make losses.
-
-<p align="center">
-	  <img src="/img/kleros_screenshot_1.png">
-</p>
-
-
-<p align="center">
-	  <img src="/img/place_bet.png">
-</p>
 
 
 - Once the bet has expired, the GAMEMASTER has 24 hours to report the outcome of the bet. Should nobody dispute the outcome within 24 hours, the winners can claim their winnings and the GAMEMASTER recovers the initial liquidity pool and the additional profits. In the future, where outcomes can be determined from an API - the use of [chainlink oracles](https://chain.link) may prove beneficial.

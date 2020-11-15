@@ -1,0 +1,3 @@
+[submodule "scui2"]
+	path = scui2
+	url = https://github.com/abdullathedruid/scui2.git
