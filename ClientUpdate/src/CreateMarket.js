@@ -1,10 +1,12 @@
 import React, {Component} from 'react';
-import {Container, TextField, MenuItem, Button} from '@material-ui/core/'
+import {Container, TextField, MenuItem, Button,CardMedia} from '@material-ui/core/'
 import Typography from '@material-ui/core/Typography'
 import generateMetaEvidence from './generate-meta-evidence.js'
 import ipfsPublish from './ipfs-publish.js'
 
 
+
+// set constants 
 const categories = [
 {
   value: 'Sports'
@@ -21,6 +23,8 @@ const numbers =[1,2,3,4,5]
 
 const enc = new TextEncoder()
 
+// define market creation class 
+
 class CreateMarket extends Component {
 
   constructor(props) {
@@ -34,10 +38,12 @@ class CreateMarket extends Component {
       options: [],
       optionsDesc: [],
       endTime: 0,
-      resultTime: 0
+      resultTime: 0,
+      initLiq: 0
     }
   }
 
+// set handle change functions
   handleChangeCategory = (event) => {
     this.setState({category: event.target.value})
   }
@@ -84,6 +90,13 @@ class CreateMarket extends Component {
     this.setState({resultTime: event.target.value})
   }
 
+
+  handleChangeinitLiq = (event) => {
+    this.setState({initLiq: event.target.value})
+  }
+
+  // function to dispure
+
   handleSubmit = (e) => {
     e.preventDefault()
     let metaevidence = generateMetaEvidence(this.state.title,this.state.category,this.state.description,this.state.question,this.state.options,this.state.optionsDesc,'0xHI')
@@ -93,10 +106,13 @@ class CreateMarket extends Component {
     })
   }
 
+  // render create market bit
+
   render() {
     return(
       <Container fixed>
       <Typography variant="h3"> Create Market </Typography>
+      <CardMedia style={{ height: "150px" }} image="/market.jpg" />
         <form autocomplete="off">
         <div>
           <TextField required id="title" label="Title" onChange={this.handleChangeTitle} defaultValue="" fullWidth/>
@@ -146,6 +162,9 @@ class CreateMarket extends Component {
         </div>
         <div>
           <TextField label="When will the answer be known (UNIX)" fullWidth value={this.state.resultTime} onChange={this.handleChangeResultTime}/>
+        </div>
+        <div>
+          <TextField label="Total Initial Liquidity in DAI" fullWidth value={this.state.initLiq} onChange={this.handleChangeinitLiq}/>
         </div>
           <div style={{
             margin: 'auto',

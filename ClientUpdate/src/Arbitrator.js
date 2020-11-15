@@ -6,7 +6,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Container from '@material-ui/core/Container'
 import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
-import {List, ListItem} from '@material-ui/core'
+import {List, ListItem,CardMedia} from '@material-ui/core'
 
 class DisputeCard extends Component {
   constructor(props) {
@@ -44,6 +44,7 @@ class Arbitrator extends Component {
     return(
       <Container>
       <Typography variant="h3"> Test Arbitrator </Typography>
+      <CardMedia style={{ height: "150px" }} image="/court.png" />
       <div>
       {
         disputes.map((dispute,key) => {

@@ -6,7 +6,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Container from '@material-ui/core/Container'
 import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
-import {List, ListItem} from '@material-ui/core'
+import {List, ListItem,CardMedia} from '@material-ui/core'
 
 const months = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC']
 
@@ -46,7 +46,7 @@ class BetCard extends Component {
       <Typography>Answer revealed: {returnFormattedTime(eventData.resultTime)}</Typography>
       <Button>Set Outcome (only GAMEMASTER)</Button>
       <Button>Dispute Answer</Button>
-      <Button>Claim reward</Button>
+      <Button size="large" color="primary" size="large" color="primary" variant="contained">Claim reward </Button>
       </div>
     )
   }
@@ -67,6 +67,7 @@ class Bets extends Component {
     return(
       <Container>
       <Typography variant="h3">Markets</Typography>
+      <CardMedia style={{ height: "150px" }} image="/market2.jpg" />
       <div>
       {
         bets.map((bet,key) => {
