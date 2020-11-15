@@ -105,7 +105,7 @@ class App extends Component {
     return(
       <React.Fragment>
       <header>
-      <AppBar position="sticky">
+      <AppBar position="sticky" style = {{backgroundColor: "#ED1C24"}}>
         <Typography variant="h6" color="inherit" noWrap>
         Supreme Court
         </Typography>
