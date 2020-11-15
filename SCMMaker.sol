@@ -1,6 +1,10 @@
-pragma solidity ^0.5.0 || ^0.6.0 || ^0.7.0;
+pragma solidity ^0.7.0;
 
-contract SCMMaker {
+import "https://github.com/kleros/erc-792/blob/master/contracts/IArbitrable.sol";
+import "https://github.com/kleros/erc-792/blob/master/contracts/IArbitrator.sol";
+import "https://github.com/kleros/erc-792/blob/master/contracts/erc-1497/IEvidence.sol";
+
+contract SCMMaker is IArbitrable, IEvidence{
     
     uint8 public numOfOutcomes; //How many different options can you bet on? - note that you cannot bet on option 0, the #INVALID option
     uint8 private outcome;    
@@ -18,23 +22,25 @@ contract SCMMaker {
     uint256 public appealTimestamp;
     uint256 public endTimestamp;
     uint256 public resultTimestamp;
+    uint256 private dispute_id;
 
     uint256 private constant DISPUTE_TIME = 1 days;
 
-
     address private game_master;
     address private disputer;
-    
+    address private currency;
+    IArbitrator public kleros = IArbitrator(0x6E06EBb39Fdf15539d06227b51C96A31d4A249b4);    
 
     
-    enum Status { BettingOpen, NoMoreBets, Appealable, Resolved }
+    enum Status { BettingOpen, NoMoreBets, Appealable, Disputed, Resolved }
     Status public status;
+    string private ipfsHash = '';
 
     /**
      * constructor function
      * param _numOptions: How many different outcomes can you bet on? (please ignore option zero here)
      * alpha is calculated as a constant that is used later on
-     * initialLiq is the initial liquidity (only required to avoid initial div0 errors, and to offer good initial pricing)
+     * need to add endtime, result time, and ipfs hash
      **/
     constructor(uint8 _numOptions) {
         numOfOutcomes = _numOptions;
@@ -53,24 +59,53 @@ contract SCMMaker {
         }
         current_cost = ABDKMath64x64.mul(b,ABDKMath64x64.ln(sumtotal));
         endTimestamp = block.timestamp; //DEBUG FX
+        resultTimestamp = block.timestamp + 5 seconds; //DEBUG FX
+        emit MetaEvidence(0,"/ipfs/QmWcHMmZfMWkVHYSNNe6qrAhM5FiWQcjSad3hUseXEjCxA/metaEvidence.json");
     }
     
     function setOutcome(uint8 _outcome) public {
+        require(status != Status.Disputed,"DECISION GONE TO KLEROS");
         require(msg.sender == game_master,"ONLY MASTER CAN CALL");
+        require(block.timestamp > resultTimestamp,'TOO EARLY TO DECIDE OUTCOME');
+        require(status == Status.BettingOpen || status == Status.NoMoreBets,"INVALID STATE");
+        //With this implementation, the user can still set the outcome after 24h but only if nobody else has disputed
         require(_outcome < numOfOutcomes+1,"INVALID OUTCOME!!");
-        require(status == Status.NoMoreBets || block.timestamp > resultTimestamp,'People can still bet');
         outcome = _outcome;
         status = Status.Appealable;
         appealTimestamp = block.timestamp + DISPUTE_TIME;
     }
     
-    function disputeOutcome() public {
+    function disputeOutcome() public payable {
+        require(status != Status.Disputed,"Already disputed");
         require ( (status == Status.Appealable && block.timestamp < appealTimestamp) || 
         (status == Status.NoMoreBets && block.timestamp < (resultTimestamp+DISPUTE_TIME)) || 
         (status == Status.BettingOpen && block.timestamp > endTimestamp && block.timestamp<(resultTimestamp+DISPUTE_TIME)),
         "CAN'T DISPUTE");
         disputer = msg.sender;
+        status = Status.Disputed;
         //GO TO KLEROS, DO NOT PASS GO
+        uint arb_cost = kleros.arbitrationCost('');
+        require(msg.value >= arb_cost);
+        dispute_id = kleros.createDispute{value: arb_cost}(numOfOutcomes,'');
+        emit Dispute(kleros, dispute_id, 0, 0);
+    }
+    
+    function rule(uint _disputeID, uint _ruling) external override {
+        require (msg.sender == address(kleros),"JUSE USE KLEROS");
+        require (_disputeID == dispute_id,"WRONG DISPUTE");
+        
+        if(uint8(_ruling) == outcome) { //KLEROS VOTED IN FAVOUR OF THE ILP
+            //technically do nothing here
+        } else { //KLEROS CHANGED THE INITIAL OUTCOME
+            outcome = uint8(_ruling);
+            game_master = disputer; //change the game master to the disputer
+        }
+        status = Status.Resolved;
+        emit Ruling(kleros, _disputeID, _ruling);
+    }
+    
+    function getOutcome() public view returns (uint8) {
+        return outcome;
     }
     
     function cost() public view returns (int128) {  //Getter function, designed for the frontend
@@ -110,7 +145,10 @@ contract SCMMaker {
     
     function buyshares(uint8 _outcome, int128 amount) public returns (int128 spot_price) {
         require(status == Status.BettingOpen,'No more bets'); // There should be a check in the front-end to make sure that betting is open (also check endTimestamp), otherwise that would suck for you to spend gas
-        if(block.timestamp > endTimestamp) {
+        require(_outcome < numOfOutcomes+1,'Invalid option');
+        require(_outcome > 0, "Can't bet on option 0"); //disable option 0 for now
+        require(amount < total_balance,"Buying too many shares!"); //user will never get a good price for this bet, so save on some gas
+        if(block.timestamp > endTimestamp) { //If the user tries to place a bet but it's too late, then they can pay the gas to switch state
             status = Status.NoMoreBets;
         } else {
             int128 new_cost;
@@ -135,8 +173,8 @@ contract SCMMaker {
     
     function claimReward() public returns (uint256) {
         require(block.timestamp > resultTimestamp,'Too early to claim');
-        require(status == Status.Resolved,'Waiting for appeals');
-        //require no further appeals allowed
+        require(status == Status.Resolved || (
+            status == Status.Appealable && block.timestamp > appealTimestamp),'Waiting for appeals');
         int128 reward = balances[outcome][msg.sender];
         q[outcome] = 0;
         balances[outcome][msg.sender] = 0;
