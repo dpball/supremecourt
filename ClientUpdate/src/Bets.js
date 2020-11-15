@@ -66,8 +66,8 @@ class Bets extends Component {
     }
     return(
       <Container>
-      <Typography variant="h3">Markets</Typography>
-      <CardMedia style={{ height: "150px" }} image="/market2.jpg" />
+      <img style={{ width: "100%"}} src="active_markets.png" />
+      <CardMedia style={{ height: "200px" }} image="/market2.jpg" />
       <div>
       {
         bets.map((bet,key) => {

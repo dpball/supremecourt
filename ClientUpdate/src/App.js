@@ -5,6 +5,8 @@ import Grid from '@material-ui/core/Grid'
 import CreateMarket from './CreateMarket'
 import Bets from './Bets'
 import Arbitrator from './Arbitrator'
+import {CardMedia} from '@material-ui/core'
+
 
 import Web3 from 'web3';
 import EventContract from './SCEvent.json'
@@ -105,13 +107,16 @@ class App extends Component {
     return(
       <React.Fragment>
       <header>
-      <AppBar position="sticky" style = {{backgroundColor: "#ED1C24"}}>
+      <AppBar position="static" style = {{backgroundColor: "#ED1C24"}} >
+        <img style={{ width: "50%" }} src="supreme_header.png" />
         <Typography variant="h6" color="inherit" noWrap>
-        Supreme Court
+          Your address: {this.state.account}
         </Typography>
+
       </AppBar>
     </header>
     <main>
+    <br/>
     <Grid container spacing = {3}>
 
       <Grid item xs={4}>

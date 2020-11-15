@@ -111,8 +111,8 @@ class CreateMarket extends Component {
   render() {
     return(
       <Container fixed>
-      <Typography variant="h3"> Create Market </Typography>
-      <CardMedia style={{ height: "150px" }} image="/market.jpg" />
+      <img style={{ width: "100%"}} src="create_markets.png" />
+      <CardMedia style={{ height: "200px" }} image="/market.jpg" />
         <form autocomplete="off">
         <div>
           <TextField required id="title" label="Title" onChange={this.handleChangeTitle} defaultValue="" fullWidth/>

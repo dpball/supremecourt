@@ -43,8 +43,8 @@ class Arbitrator extends Component {
   render() {
     return(
       <Container>
-      <Typography variant="h3"> Test Arbitrator </Typography>
-      <CardMedia style={{ height: "150px" }} image="/court.png" />
+      <img style={{ width: "100%"}} src="dispute_outcome.png" />
+      <CardMedia style={{ height: "200px" }} image="/court.png" />
       <div>
       {
         disputes.map((dispute,key) => {
