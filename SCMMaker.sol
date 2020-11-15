@@ -2,8 +2,9 @@ pragma solidity ^0.7.0;
 
 import "https://github.com/kleros/erc-792/blob/master/contracts/IArbitrable.sol";
 import "https://github.com/kleros/erc-792/blob/master/contracts/IArbitrator.sol";
+import "https://github.com/kleros/erc-792/blob/master/contracts/erc-1497/IEvidence.sol";
 
-contract SCMMaker is IArbitrable{
+contract SCMMaker is IArbitrable, IEvidence{
     
     uint8 public numOfOutcomes; //How many different options can you bet on? - note that you cannot bet on option 0, the #INVALID option
     uint8 private outcome;    
@@ -21,20 +22,19 @@ contract SCMMaker is IArbitrable{
     uint256 public appealTimestamp;
     uint256 public endTimestamp;
     uint256 public resultTimestamp;
+    uint256 private dispute_id;
 
     uint256 private constant DISPUTE_TIME = 1 days;
 
     address private game_master;
     address private disputer;
-    IArbitrator public kleros;    
+    address private currency;
+    IArbitrator public kleros = IArbitrator(0x6E06EBb39Fdf15539d06227b51C96A31d4A249b4);    
 
     
     enum Status { BettingOpen, NoMoreBets, Appealable, Disputed, Resolved }
     Status public status;
-
-    function rule(uint _disputeID, uint _ruling) public override {
-    }
-
+    string private ipfsHash = '';
 
     /**
      * constructor function
@@ -59,8 +59,8 @@ contract SCMMaker is IArbitrable{
         }
         current_cost = ABDKMath64x64.mul(b,ABDKMath64x64.ln(sumtotal));
         endTimestamp = block.timestamp; //DEBUG FX
-        resultTimestamp = block.timestamp + 5 minutes; //DEBUG FX
-        kleros = IArbitrator("0x5c0aBF5Cb52a847185d2839084eF736f6E8d88b1");
+        resultTimestamp = block.timestamp + 5 seconds; //DEBUG FX
+        emit MetaEvidence(0,"/ipfs/QmWcHMmZfMWkVHYSNNe6qrAhM5FiWQcjSad3hUseXEjCxA/metaEvidence.json");
     }
     
     function setOutcome(uint8 _outcome) public {
@@ -75,7 +75,7 @@ contract SCMMaker is IArbitrable{
         appealTimestamp = block.timestamp + DISPUTE_TIME;
     }
     
-    function disputeOutcome() public {
+    function disputeOutcome() public payable {
         require(status != Status.Disputed,"Already disputed");
         require ( (status == Status.Appealable && block.timestamp < appealTimestamp) || 
         (status == Status.NoMoreBets && block.timestamp < (resultTimestamp+DISPUTE_TIME)) || 
@@ -84,7 +84,28 @@ contract SCMMaker is IArbitrable{
         disputer = msg.sender;
         status = Status.Disputed;
         //GO TO KLEROS, DO NOT PASS GO
-        kleros.createDispute(numOfOutcomes,'');
+        uint arb_cost = kleros.arbitrationCost('');
+        require(msg.value >= arb_cost);
+        dispute_id = kleros.createDispute{value: arb_cost}(numOfOutcomes,'');
+        emit Dispute(kleros, dispute_id, 0, 0);
+    }
+    
+    function rule(uint _disputeID, uint _ruling) external override {
+        require (msg.sender == address(kleros),"JUSE USE KLEROS");
+        require (_disputeID == dispute_id,"WRONG DISPUTE");
+        
+        if(uint8(_ruling) == outcome) { //KLEROS VOTED IN FAVOUR OF THE ILP
+            //technically do nothing here
+        } else { //KLEROS CHANGED THE INITIAL OUTCOME
+            outcome = uint8(_ruling);
+            game_master = disputer; //change the game master to the disputer
+        }
+        status = Status.Resolved;
+        emit Ruling(kleros, _disputeID, _ruling);
+    }
+    
+    function getOutcome() public view returns (uint8) {
+        return outcome;
     }
     
     function cost() public view returns (int128) {  //Getter function, designed for the frontend
