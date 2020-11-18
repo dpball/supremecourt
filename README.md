@@ -7,6 +7,8 @@
 
 > Prediction is very difficult, especially about the future - Niels Bohr
 
+abdulla#2918
+
 ### Project: Prediction Market Maker / Betting Platform
 
 The 2020 US Presidential election has started a discussion on the importance of decentralised betting markets. Crowdsourcing predictions by providing financial incentives can often outperform traditional forecasting. In this project, we aim to produce a decentralised betting market that runs on the ethereum blockchain and is secured by Kleros.
